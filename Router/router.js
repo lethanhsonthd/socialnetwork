@@ -40,7 +40,7 @@ app.get('/login', (req, res) => {
     res.render('index')
 })
 function requireLogin(req,res,next){
-    if (req.isUnauthenticated()) res.redirect('/login')   
+    if (req.isUnauthenticated()) return res.redirect('/login')   
     next()
 }
 app.post('/login', (req,res,next)=>{
@@ -63,8 +63,7 @@ app.post('/logout',(req,res)=>{
     req.logout()
     res.redirect('/login')
 })
-app.get('/home',(req,res,next)=>{
-    requireLogin(req,res,next)
+app.get('/home',requireLogin,(req,res,next)=>{
     res.render('homepage')
     next()
 })
