@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
         unique: false,
         required: [true, "can't be blank"]
     } 
-})
+})  
 mongoose.model('User', UserSchema)
 
 module.exports = mongoose

@@ -5,6 +5,7 @@ const User = require('../models/User').model('User')
 const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const debug = require('debug')('http')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(session({ secret: 'son', saveUninitialized: true, resave: true, cookie: { maxAge: 60000 } }))
@@ -49,7 +50,7 @@ app.post('/login', (req,res,next)=>{
             return next(err)
         }
         if (!user){
-            return redirect('/login')
+            return res.redirect('/login')
         }
         req.logIn(user,(err)=>{
             if (err){
@@ -64,10 +65,10 @@ app.post('/logout',(req,res)=>{
     res.redirect('/login')
 })
 app.get('/home',requireLogin,(req,res,next)=>{
-    res.render('homepage')
-    next()
+    res.render('testchat')
 })
 app.get('/',(req,res)=>{
+    
     res.redirect('login')
 })
 module.exports = app
